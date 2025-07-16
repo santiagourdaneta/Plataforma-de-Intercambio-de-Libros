@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# IDEs
+.idea/
+.vscode/
+
+# Test coverage
+coverage/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/results/
+cypress/report/
+
+# MongoDB local files (if any are created directly in project root)
+data/db/
+*.lock
+
+# Other OS files
+.DS_Store
+Thumbs.db

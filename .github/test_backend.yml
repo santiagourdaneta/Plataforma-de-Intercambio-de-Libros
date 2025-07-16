@@ -1,0 +1,43 @@
+# .github/workflows/test_backend.yml
+name: Pruebas de Backend de Node.js
+
+# Cuando quieres que el robot se despierte y trabaje:
+on:
+  push: # Cuando subas código (git push) a estas ramas:
+    branches:
+      - main # La rama principal de tu proyecto
+      - develop # Si usas una rama para desarrollo
+  pull_request: # Cuando alguien intente meter código en estas ramas:
+    branches:
+      - main
+      - develop
+
+# Las tareas que el robot va a hacer:
+jobs:
+  probar_backend:
+    runs-on: ubuntu-latest # El robot usará una computadora con Linux (Ubuntu)
+
+    steps:
+      - uses: actions/checkout@v4 # Paso 1: El robot descarga tu código
+
+      - name: Paso 2: El robot configura Node.js (tu caja de herramientas)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Dile al robot qué versión de Node.js usar
+
+      - name: Paso 3: El robot configura MongoDB (tu base de datos de prueba)
+        uses: supercharge/mongodb-github-action@v1.9.0
+        with:
+          mongodb-version: '6.0' # Dile al robot qué versión de MongoDB usar
+
+      - name: Paso 4: El robot instala tus dependencias (las piezas de tus juguetes)
+        run: npm install # O 'yarn install' si usas yarn
+
+      - name: Paso 5: El robot crea el archivo .env para las pruebas (¡Importante!)
+        run: | # Esto es para que el robot sepa dónde está tu base de datos de pruebas
+          echo "MONGO_URI_TEST=mongodb://localhost:27017/librosVecinosTestDB" >> .env
+          # Si tienes otras variables de entorno que necesites para las pruebas, las pones aquí.
+          # ¡Cuidado! Las contraseñas o cosas secretas NO van aquí, van en "Secrets" de GitHub.
+
+      - name: Paso 6: ¡El robot corre tus pruebas!
+        run: npm run test:backend # Tu comando para correr las pruebas
