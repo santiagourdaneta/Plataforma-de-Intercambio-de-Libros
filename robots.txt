@@ -1,0 +1,10 @@
+# robots.txt
+User-agent: *
+Allow: /
+
+# Si tienes alguna página que NO quieres que Google encuentre, ponla aquí
+# Por ejemplo, una página de administración o de prueba:
+# Disallow: /admin/
+# Disallow: /temp/
+
+Sitemap: https://tu_sitio.com/sitemap.xml
