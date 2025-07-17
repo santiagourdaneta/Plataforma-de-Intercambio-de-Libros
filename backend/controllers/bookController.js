@@ -82,11 +82,18 @@ exports.getBookById = async (req, res) => {
 exports.updateBook = async (req, res) => {
     try {
         const { id } = req.params; // ID del libro a actualizar
-        const updates = req.body; // Datos a actualizar
+        const allowedFields = ['title', 'author', 'isbn', 'genre', 'condition', 'description']; // Campos permitidos para actualización
+        const updates = {};
 
-        // Validaciones básicas de que al menos un campo venga para actualizar
+        // Validar y construir el objeto `updates` con solo campos permitidos y valores literales
+        for (const field of allowedFields) {
+            if (req.body[field] && (typeof req.body[field] === 'string' || typeof req.body[field] === 'number' || typeof req.body[field] === 'boolean')) {
+                updates[field] = req.body[field];
+            }
+        }
+
         if (Object.keys(updates).length === 0) {
-            return res.status(400).json({ message: 'No se han proporcionado datos para actualizar.' });
+            return res.status(400).json({ message: 'No se han proporcionado datos válidos para actualizar.' });
         }
 
         // Buscamos y actualizamos el libro. `new: true` devuelve el documento actualizado.
