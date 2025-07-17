@@ -63,6 +63,11 @@ exports.loginUser = async (req, res) => {
         return res.status(400).json({ message: 'Email y contraseña son obligatorios.' });
     }
 
+    // Validate that email is a string
+    if (typeof email !== 'string') {
+        return res.status(400).json({ message: 'Email debe ser una cadena de texto válida.' });
+    }
+
     try {
         const user = await User.findOne({ email });
 
