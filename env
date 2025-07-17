@@ -1,0 +1,7 @@
+# .env
+
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/librosIntercambioDB
+MONGO_URI_TEST=mongodb://localhost:27017/librosIntercambioTestDB
+
+JWT_SECRET=K9WC8/lpw}mwM77p+zeJ!8'x;?V#oN0po7Ke
