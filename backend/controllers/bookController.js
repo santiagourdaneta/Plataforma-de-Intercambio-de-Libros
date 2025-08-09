@@ -98,7 +98,7 @@ exports.updateBook = async (req, res) => {
 
         // Buscamos y actualizamos el libro. `new: true` devuelve el documento actualizado.
         // `runValidators: true` asegura que las reglas del esquema de Mongoose se apliquen a las actualizaciones.
-        const updatedBook = await Book.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+        const updatedBook = await Book.findByIdAndUpdate(id, { $set: updates }, { new: true, runValidators: true });
 
         // Si no se encuentra el libro, respondemos con 404
         if (!updatedBook) {
